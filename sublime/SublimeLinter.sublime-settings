@@ -1,0 +1,15 @@
+{
+  "sublimelinter": "save-only",
+  "sublimelinter_delay": 0,
+  "jshint_options":{
+    "indent" : 2,
+    "white" : true,
+    "debug" : true,
+    "smarttabs" : true,
+    "multistr" : true,
+    "jquery" : true,
+    "proto" : false,
+    "unused" : true,
+    "trailing" : true
+  }
+}
