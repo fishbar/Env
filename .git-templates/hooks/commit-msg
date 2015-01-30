@@ -1,0 +1,33 @@
+#!/bin/sh
+files=(`git st |grep -e '\t\{1,\}[a-zA-Z]\{1,\} \?[a-zA-Z]\{1,\}: \{1,\}'|grep -v "deleted:"|awk -F : '{print $2}'|awk '{print $1}'`)
+base=`pwd`
+project=`basename $base`
+user=`git config user.name`
+email=`git config user.email`
+cdate=`date "+%Y-%m-%d %H:%M:%S"`
+
+fnum=${#files[@]}
+
+if [ $fnum -eq 0 ]; then
+  echo "no file matched"
+  exit 0
+fi
+
+
+echo '\033[0;37m== commit-msg hook ==\033[0m'
+
+res=0
+for ff in ${files[@]};
+do
+  .git/hooks/header.js "$user" "$email" "$cdate" "$project" "$ff"
+  tmp=$?
+  ((res+=tmp))
+done
+
+if [ ! $res -eq 0 ]; then 
+  echo '\033[0;31m== commit abort, please check changes ==\033[0m'
+  git st
+fi
+
+exit $res
+
