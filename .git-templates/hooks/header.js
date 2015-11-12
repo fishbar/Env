@@ -37,7 +37,7 @@ var header = [
   process.exit(0);
  }
 
- if (cnt.match(/^\s*\/\*\!/g)) {
+ if (cnt.match(/^\s*\/\*\*?\!/g)) {
   // already have file descriptions, exit now
   // console.log('no match file', obj.file);
   process.exit(0);
